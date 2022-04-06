@@ -1,14 +1,20 @@
 import "./App.css";
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
-import styled from "styled-components";
+
 import PostList from "../pages/PostList";
 import Login from "../pages/Login";
-import Header from "../components/Header";
-import { Grid } from "../elements";
 import Signup from "../pages/Signup";
+import PostWrite from "../pages/PostWrite";
+import PostDetail from "../pages/PostDetail";
+
+import Header from "../components/Header";
+import { Button, Grid } from "../elements";
+import Permit from "./Permit";
+
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { apiKey } from "./firebase";
@@ -32,8 +38,19 @@ function App() {
                         <Route path="/" exact component={PostList} />
                         <Route path="/login" exact component={Login} />
                         <Route path="/signup" exact component={Signup} />
+                        <Route path="/write" exact component={PostWrite} />
+                        <Route path="/post/:id" exact component={PostDetail} />
                     </ConnectedRouter>
                 </Grid>
+                <Permit>
+                    <Button
+                        is_float
+                        text="+"
+                        _onClick={() => {
+                            history.push("/write");
+                        }}
+                    ></Button>
+                </Permit>
             </MainWrap>
         </React.Fragment>
     );
@@ -48,7 +65,6 @@ const MainWrap = styled.div`
     align-items: center;
     width: 30%;
     margin: auto;
-    background-color: #eeeedd;
 
     @media (max-width: 1600px) {
         width: 40%;

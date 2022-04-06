@@ -17,7 +17,7 @@ const Header = (props) => {
 
     const is_session = sessionStorage.getItem(_session_key) ? true : false;
 
-    console.log(is_session);
+    // console.log(is_session);
     // console.log(_session_key);
     // console.log(sessionStorage.getItem(_session_key));
 
@@ -34,35 +34,8 @@ const Header = (props) => {
     //     }
     // });
 
-    // if (is_login && is_session) {
-    //     return (
-
-    //     );
-    // }
-    <Permit>
-        <React.Fragment>
-            <Grid is_flex padding="4px 16px">
-                <Grid>
-                    <Text margin="0px" size="24px" bold>
-                        Hello, World
-                    </Text>
-                </Grid>
-
-                <Grid is_flex>
-                    <Button text="내정보"></Button>
-                    <Button text="알림"></Button>
-                    <Button
-                        text="로그아웃"
-                        _onClick={() => {
-                            dispatch(userActions.logoutFB());
-                        }}
-                    ></Button>
-                </Grid>
-            </Grid>
-        </React.Fragment>
-    </Permit>;
-    return (
-        <React.Fragment>
+    if (!is_login && !is_session) {
+        return (
             <Grid is_flex padding="4px 16px">
                 <Grid>
                     <Text margin="0px" size="24px" bold>
@@ -85,6 +58,33 @@ const Header = (props) => {
                     ></Button>
                 </Grid>
             </Grid>
+        );
+    }
+
+    return (
+        <React.Fragment>
+            <Permit>
+                <React.Fragment>
+                    <Grid is_flex padding="4px 16px">
+                        <Grid>
+                            <Text margin="0px" size="24px" bold>
+                                Hello, World
+                            </Text>
+                        </Grid>
+
+                        <Grid is_flex>
+                            <Button text="내정보"></Button>
+                            <Button text="알림"></Button>
+                            <Button
+                                text="로그아웃"
+                                _onClick={() => {
+                                    dispatch(userActions.logoutFB());
+                                }}
+                            ></Button>
+                        </Grid>
+                    </Grid>
+                </React.Fragment>
+            </Permit>
         </React.Fragment>
     );
 };

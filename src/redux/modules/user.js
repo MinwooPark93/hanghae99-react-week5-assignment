@@ -135,6 +135,7 @@ export default handleActions(
     {
         [SET_USER]: (state, action) =>
             produce(state, (draft) => {
+                console.log(action);
                 setCookie("is_login", "success");
                 draft.user = action.payload.user;
                 draft.is_login = true;
