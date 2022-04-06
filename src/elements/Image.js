@@ -25,9 +25,18 @@ const Image = (props) => {
 
 Image.defaultProps = {
     shape: "rectangle",
-    src: "https://pixabay.com/get/g4e57976fd66503fcfa2759d82b55ecbd9226bf1fa134591da5c22d89cd95e0c7a20f20db3af5b449c1d96a78dc4b7e6df8b3ff50ae2a296754f5740e9c78dfc5e1114e92eacfae0fb72c381536d50162_1920.jpg",
+    src: "https://firebasestorage.googleapis.com/v0/b/image-community-3e20a.appspot.com/o/images%2FR38VaiEepQRpNCfYIj1F8WgiVOG3_1649226556656?alt=media&token=c59fd633-d47e-48b6-a368-e1d473beeea2",
     size: 36,
 };
+
+const ImageDefault = styled.div`
+    --size: ${(props) => props.size}px;
+    width: var(--size);
+    height: var(--size);
+
+    background-image: url("${(props) => props.src}");
+    background-size: cover;
+`;
 
 const ImageCircle = styled.div`
     --size: ${(props) => props.size}px;
