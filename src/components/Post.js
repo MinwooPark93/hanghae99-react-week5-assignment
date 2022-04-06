@@ -1,18 +1,48 @@
 import React from "react";
-// import Grid from "../elements/Grid";
-// import Image from "../elements/Image";
-// import Text from "../elements/Text";
+import { Grid, Image, Text, Button } from "../elements";
 
-import { Grid, Image, Text } from "../elements";
+import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const Post = (props) => {
+    const dispatch = useDispatch();
+    const deletePost = () => {
+        dispatch(postActions.deletePostFB(props.id));
+    };
     return (
         <React.Fragment>
             <Grid>
-                <Grid is_flex>
-                    <Image shape="circle" src={props.src} />
-                    <Text bold>{props.user_info.user_name}</Text>
-                    <Text>{props.insert_dt}</Text>
+                <Grid is_flex padding="16px">
+                    <Grid is_flex width="auto">
+                        <Image shape="circle" src={props.src} />
+                        <Text bold>{props.user_info.user_name}</Text>
+                    </Grid>
+                    <Grid is_flex width="auto">
+                        <Text>{props.insert_dt}</Text>
+                        {props.is_me && (
+                            <Button
+                                width="auto"
+                                margin="4px"
+                                padding="4px"
+                                _onClick={() => {
+                                    history.push(`/write/${props.id}`);
+                                }}
+                            >
+                                수정
+                            </Button>
+                        )}
+                        {props.is_me && (
+                            <Button
+                                width="auto"
+                                margin="4px"
+                                padding="4px"
+                                _onClick={deletePost}
+                            >
+                                삭제
+                            </Button>
+                        )}
+                    </Grid>
                 </Grid>
                 <Grid padding="16px">
                     <Text>{props.contents}</Text>
@@ -25,12 +55,6 @@ const Post = (props) => {
                         댓글 {props.comment_cnt}개
                     </Text>
                 </Grid>
-                <div>
-                    user profile / user name / insert_dt / is_me (edit btn)
-                </div>
-                <div>contents</div>
-                <div>image</div>
-                <div>comment cnt</div>
             </Grid>
         </React.Fragment>
     );
@@ -48,6 +72,7 @@ Post.defaultProps = {
     contents: "안녕하세요",
     comment_cnt: 10,
     insert_dt: "2022-02-02 22:22:22",
+    is_me: false,
 };
 
 export default Post;
